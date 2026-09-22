@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who Wants to Be a Millionaire — Unit 2 Field Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Concert+One&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E6;
+  --cream-2:#EDE6D6;
+  --ink:#33302A;
+  --ink-soft:#5B564C;
+  --slate:#5C7A99;
+  --slate-dark:#3B546C;
+  --slate-deep:#25384A;
+  --blush:#E7ADB7;
+  --blush-deep:#C9788A;
+  --mint:#9FC9AF;
+  --mint-deep:#6FA383;
+  --card:#FFFDF8;
+  --line: rgba(51,48,42,0.14);
+  --shadow: 0 10px 30px rgba(37,56,74,0.16);
+  --team-1-bg:#3B546C; --team-1-fg:#FFFDF8;
+  --team-2-bg:#C9788A; --team-2-fg:#FFFDF8;
+  --team-3-bg:#6FA383; --team-3-fg:#FFFDF8;
+  --team-4-bg:#C99A3E; --team-4-fg:#2A2005;
+  --team-5-bg:#B8714F; --team-5-fg:#FFFDF8;
+  --team-6-bg:#8676A6; --team-6-fg:#FFFDF8;
+  --team-7-bg:#437E82; --team-7-fg:#FFFDF8;
+  --team-8-bg:#A8536A; --team-8-fg:#FFFDF8;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --cream:#20262C;
+    --cream-2:#262D34;
+    --ink:#F0EBDE;
+    --ink-soft:#C7C0B2;
+    --card:#2A3138;
+    --line: rgba(240,235,222,0.14);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+}
+:root[data-theme="dark"]{
+  --cream:#20262C;
+  --cream-2:#262D34;
+  --ink:#F0EBDE;
+  --ink-soft:#C7C0B2;
+  --card:#2A3138;
+  --line: rgba(240,235,222,0.14);
+  --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+html,body{height:100%;}
+* { box-sizing: border-box; }
+body{
+  margin:0;
+  background: var(--cream);
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(159,201,175,0.14), transparent 40%),
+    radial-gradient(circle at 92% 85%, rgba(231,173,183,0.14), transparent 40%);
+  color: var(--ink);
+  font-family: 'Urbanist', sans-serif;
+  min-height: 100%;
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+.wrap{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+h1,h2,h3{ font-family:'Fredoka', sans-serif; margin:0; }
+.tagline{ font-family:'Concert One', sans-serif; letter-spacing:0.02em; }
+
+/* ---------- top masthead ---------- */
+.masthead{
+  display:flex; align-items:center; gap:16px; margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+.compass{
+  width:52px; height:52px; border-radius:50%;
+  background: conic-gradient(from 45deg, var(--slate), var(--mint), var(--blush), var(--slate));
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: var(--shadow);
+  flex-shrink:0;
+}
+.compass span{ font-size: 22px; }
+.masthead h1{ font-size: clamp(22px, 3.4vw, 32px); color: #2FA8D8; line-height:1.15;}
+:root[data-theme="dark"] .masthead h1{ color: #6FCBEF; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .masthead h1{ color: #6FCBEF; } }
+.masthead .tagline{ color: var(--ink-soft); font-size: 14px; margin-top:2px; }
+
+/* ---------- setup screen ---------- */
+.panel{
+  background: var(--card);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  padding: 30px clamp(18px,4vw,40px);
+}
+.setup-grid{ display:flex; flex-direction:column; gap:26px; }
+.field-label{
+  font-family:'Concert One', sans-serif;
+  font-size: 15px;
+  color: var(--slate-dark);
+  margin-bottom: 10px;
+  display:block;
+}
+:root[data-theme="dark"] .field-label{ color: var(--mint); }
+.mode-toggle{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+.mode-btn{
+  border: 2px solid var(--line);
+  background: var(--cream-2);
+  border-radius: 16px;
+  padding: 18px 16px;
+  cursor:pointer;
+  text-align:left;
+  font-family:'Urbanist', sans-serif;
+  transition: border-color .15s ease, transform .1s ease;
+  color: var(--ink);
+}
+.mode-btn:hover{ transform: translateY(-2px); }
+.mode-btn.selected{
+  border-color: var(--slate);
+  background: linear-gradient(135deg, rgba(92,122,153,0.12), rgba(159,201,175,0.12));
+}
+.mode-btn strong{ font-family:'Fredoka', sans-serif; display:block; font-size:17px; margin-bottom:4px; color: var(--slate-deep); }
+:root[data-theme="dark"] .mode-btn strong{ color:var(--mint); }
+.mode-btn small{ color: var(--ink-soft); font-size: 13px; }
+
+.team-count-row{ display:flex; align-items:center; gap:14px; }
+.stepper{ display:flex; align-items:center; gap:10px; }
+.stepper button{
+  width:38px; height:38px; border-radius:50%; border:2px solid var(--slate);
+  background: var(--card); color: var(--slate-deep); font-size:18px; font-weight:700;
+  cursor:pointer;
+}
+:root[data-theme="dark"] .stepper button{ color: var(--mint); }
+.stepper span{ min-width: 28px; text-align:center; font-family:'Fredoka'; font-size:18px;}
+
+.team-names{ display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+.team-name-input{
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: 'Urbanist';
+  font-size: 15px;
+  background: var(--cream-2);
+  color: var(--ink);
+}
+.team-name-input:focus{ outline: none; border-color: var(--slate); }
+
+.start-btn{
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--slate), var(--slate-deep));
+  color: #fff;
+  border:none;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font-family:'Fredoka';
+  font-size: 17px;
+  cursor:pointer;
+  box-shadow: 0 8px 20px rgba(37,56,74,0.3);
+}
+.start-btn:disabled{ opacity:0.45; cursor:not-allowed; }
+.start-btn:hover:not(:disabled){ filter: brightness(1.06); }
+
+.rules-note{
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  border-top: 1px dashed var(--line);
+  padding-top: 16px;
+  line-height: 1.55;
+}
+
+/* ---------- game screen ---------- */
+.game-hidden{ display:none; }
+.game-layout{
+  display:grid;
+  grid-template-columns: 220px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+@media (max-width: 760px){
+  .game-layout{ grid-template-columns: 1fr; }
+  .ladder{ order: 2; }
+}
+.ladder{
+  background: var(--card);
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 14px 10px;
+  max-height: 640px;
+  overflow-y: auto;
+}
+.ladder h3{ font-size:13px; text-align:center; color:var(--ink-soft); font-family:'Concert One'; margin-bottom:8px; }
+.rung{
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 7px 10px; border-radius: 8px; font-size: 13px;
+  font-weight:600; color: var(--ink-soft);
+}
+.rung.safety{ background: rgba(159,201,175,0.22); color: var(--mint-deep); font-weight:800; }
+.rung.current{
+  background: linear-gradient(90deg, var(--blush), var(--blush-deep));
+  color: #fff;
+  font-weight:800;
+  transform: scale(1.04);
+}
+.rung .num{ opacity:0.65; font-size:11px; }
+
+.main-card{
+  background: var(--card);
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: clamp(18px,3vw,32px);
+  min-height: 480px;
+  display:flex; flex-direction:column;
+}
+.big-turn-banner{
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+  margin-bottom: 20px;
+  padding: 22px 28px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  transition: background-color .2s ease;
+}
+.big-turn-banner .up-now-label{
+  font-family:'Concert One'; font-size: 14px; opacity:0.85; margin-bottom: 4px; display:block;
+}
+.big-turn-banner .up-now-name{
+  font-family:'Fredoka'; font-size: clamp(26px, 4.4vw, 40px); line-height:1.1; font-weight:600;
+}
+.big-turn-banner .up-now-progress{
+  font-family:'Urbanist'; font-weight:800; font-size: clamp(17px, 2.2vw, 22px);
+  text-align:right;
+}
+.big-turn-banner .up-now-progress small{
+  display:block; font-weight:600; font-size:13px; opacity:0.85; font-family:'Concert One';
+}
+
+.turn-banner{
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--line);
+}
+.turn-tag{
+  font-family:'Concert One'; font-size:12.5px; padding: 5px 12px; border-radius:999px;
+  background: var(--cream-2); color: var(--ink-soft); border: 1px solid var(--line);
+}
+
+.tier-strip{ font-family:'Concert One'; font-size:12.5px; color: var(--blush-deep); margin-bottom: 8px; }
+.question-text{
+  font-size: clamp(18px, 2.4vw, 23px);
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+.options{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  margin-bottom: 20px;
+}
+@media (max-width:560px){ .options{ grid-template-columns: 1fr; } }
+.opt-btn{
+  text-align:left;
+  border: 2px solid var(--slate);
+  background: var(--cream-2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-family:'Urbanist'; font-size:15px; color: var(--ink); font-weight:600;
+  cursor:pointer;
+  display:flex; gap:10px;
+  transition: background .15s ease, transform .08s ease;
+}
+.opt-btn:hover:not(:disabled){ background: rgba(92,122,153,0.14); transform: translateY(-1px); }
+.opt-btn .letter{
+  font-family:'Fredoka'; color: #2FA8D8; flex-shrink:0;
+}
+:root[data-theme="dark"] .opt-btn .letter{ color: #6FCBEF; }
+.opt-btn:disabled{ cursor:default; }
+.opt-btn.correct{ background: linear-gradient(135deg, var(--mint), var(--mint-deep)); color:#fff; border-color: var(--mint-deep); }
+.opt-btn.correct .letter{ color:#fff; }
+.opt-btn.wrong{ background: linear-gradient(135deg, var(--blush), var(--blush-deep)); color:#fff; border-color: var(--blush-deep); }
+.opt-btn.wrong .letter{ color:#fff; }
+.opt-btn.faded{ opacity: 0.35; }
+
+.controls-row{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  margin-top: auto;
+}
+.lifeline-btn{
+  border: 2px dashed var(--slate);
+  background: transparent;
+  color: var(--slate-deep);
+  font-family:'Concert One'; font-size:13.5px;
+  padding: 9px 16px; border-radius: 999px; cursor:pointer;
+}
+:root[data-theme="dark"] .lifeline-btn{ color: var(--mint); border-color: var(--mint-deep); }
+.lifeline-btn:disabled{ opacity:0.3; cursor:not-allowed; text-decoration: line-through; }
+.next-btn{
+  background: linear-gradient(135deg, var(--slate), var(--slate-deep));
+  color:#fff; border:none; padding: 12px 26px; border-radius: 999px;
+  font-family:'Fredoka'; font-size:15px; cursor:pointer;
+  box-shadow: 0 8px 18px rgba(37,56,74,0.28);
+  visibility:hidden;
+}
+.next-btn.show{ visibility: visible; }
+.feedback{
+  font-family:'Urbanist'; font-weight:700; font-size:14.5px; margin-top:6px; min-height: 20px;
+}
+.feedback.good{ color: var(--mint-deep); }
+.feedback.bad{ color: var(--blush-deep); }
+
+/* ---------- results screen ---------- */
+.results-list{ display:flex; flex-direction:column; gap:10px; margin: 22px 0; }
+.result-row{
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 14px 18px; border-radius: 14px; background: var(--cream-2);
+  border: 1px solid var(--line);
+}
+.result-row.winner{
+  background: linear-gradient(135deg, rgba(159,201,175,0.35), rgba(159,201,175,0.15));
+  border-color: var(--mint-deep);
+}
+.result-name{ font-family:'Fredoka'; font-size:17px; color: var(--slate-deep); }
+:root[data-theme="dark"] .result-name{ color: var(--mint); }
+.result-amt{ font-family:'Fredoka'; font-size:18px; color: var(--ink); }
+.medal{ margin-right: 8px; }
+.restart-btn{
+  background: transparent; border:2px solid var(--slate); color: var(--slate-deep);
+  font-family:'Fredoka'; padding: 12px 24px; border-radius: 999px; cursor:pointer; font-size:15px;
+}
+:root[data-theme="dark"] .restart-btn{ color: var(--mint); border-color: var(--mint-deep); }
+
+.remove-team{
+  background:none;border:none;color:var(--blush-deep);cursor:pointer;font-size:18px;line-height:1;padding:0 6px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="compass"><span>🧭</span></div>
+    <div>
+      <h1>Who Wants to Be a Millionaire</h1>
+      <div class="tagline">Unit 2 Field Review — Earth's Systems, Seasons &amp; Human Impact</div>
+    </div>
+  </div>
+
+  <!-- SETUP SCREEN -->
+  <div id="setup-screen" class="panel">
+    <div class="setup-grid">
+      <div>
+        <label class="field-label">How is your crew playing?</label>
+        <div class="mode-toggle">
+          <button class="mode-btn selected" id="mode-individual" onclick="chooseMode('individual')">
+            <strong>Solo Explorer</strong>
+            <small>One player climbs the ladder question by question.</small>
+          </button>
+          <button class="mode-btn" id="mode-teams" onclick="chooseMode('teams')">
+            <strong>Team Expedition</strong>
+            <small>Small groups take turns in the hot seat, each with their own ladder.</small>
+          </button>
+        </div>
+      </div>
+
+      <div id="teams-setup" class="game-hidden">
+        <label class="field-label">Number of teams</label>
+        <div class="team-count-row">
+          <div class="stepper">
+            <button type="button" onclick="changeTeamCount(-1)">−</button>
+            <span id="team-count-display">2</span>
+            <button type="button" onclick="changeTeamCount(1)">+</button>
+          </div>
+        </div>
+        <div class="team-names" id="team-name-inputs"></div>
+      </div>
+
+      <div id="individual-setup">
+        <label class="field-label">Player name (optional)</label>
+        <input type="text" class="team-name-input" id="solo-name" placeholder="e.g. Field Team Alpha" style="max-width:280px;">
+      </div>
+
+      <button class="start-btn" id="start-btn" onclick="startGame()">Begin the Expedition</button>
+
+      <div class="rules-note">
+        35 questions, one climb up the money ladder. A correct answer moves you up a rung; a miss drops you back to your last safety net (rungs 10, 20, and 30). Each player or team gets one 50:50 lifeline to use whenever it's their turn. Questions are asked once each, in order, rotating between teams.
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game-screen" class="game-hidden">
+
+    <div class="big-turn-banner" id="big-turn-banner">
+      <div>
+        <span class="up-now-label">Up now</span>
+        <div class="up-now-name" id="turn-who">—</div>
+      </div>
+      <div class="up-now-progress" id="progress-tag">
+        <small>Currently at</small>
+        $0
+      </div>
+    </div>
+
+    <div class="game-layout">
+      <div class="ladder" id="ladder"></div>
+
+      <div class="main-card">
+        <div class="turn-banner">
+          <div class="tier-strip" id="tier-strip-inline" style="margin:0;"></div>
+          <div class="turn-tag" id="question-count">Q 1 / 35</div>
+        </div>
+
+        <div class="question-text" id="question-text"></div>
+        <div class="options" id="options"></div>
+        <div class="feedback" id="feedback"></div>
+
+        <div class="controls-row">
+          <button class="lifeline-btn" id="fifty-btn" onclick="useFiftyFifty()">Use 50:50</button>
+          <button class="next-btn" id="next-btn" onclick="nextTurn()">Next Question →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="results-screen" class="panel game-hidden">
+    <h2 style="color:var(--slate-deep); margin-bottom:6px;">Expedition Complete</h2>
+    <div class="tagline" style="color:var(--ink-soft); font-size:14px;">Here's how far each explorer made it up the ladder.</div>
+    <div class="results-list" id="results-list"></div>
+    <button class="restart-btn" onclick="location.reload()">Start a New Expedition</button>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+{tier:"Warm-Up", q:"Which of Earth's spheres includes all living organisms?", opts:["Atmosphere","Biosphere","Hydrosphere","Lithosphere"], correct:1},
+{tier:"Warm-Up", q:"Which layer of Earth is the thin, solid outermost layer?", opts:["Mantle","Outer core","Crust","Inner core"], correct:2},
+{tier:"Warm-Up", q:"Which sphere includes oceans, rivers, lakes, groundwater, and glaciers?", opts:["Biosphere","Atmosphere","Hydrosphere","Lithosphere"], correct:2},
+{tier:"Warm-Up", q:"What is the main source of energy that powers the water cycle?", opts:["Heat from the Sun","Earth's gravity","Heat from Earth's core","Wind"], correct:0},
+{tier:"Warm-Up", q:"Which process most directly results in the formation of clouds?", opts:["Evaporation","Condensation","Runoff","Precipitation"], correct:1},
+{tier:"Warm-Up", q:"Approximately what percentage of Earth's water is freshwater?", opts:["3%","22%","71%","97%"], correct:0},
+{tier:"Warm-Up", q:"Where is most of Earth's freshwater stored?", opts:["Rivers and lakes","Groundwater","Glaciers and ice sheets","The atmosphere"], correct:2},
+{tier:"Warm-Up", q:"Which statement correctly distinguishes weather from climate?", opts:["Weather describes long-term patterns, while climate describes daily conditions.","Weather describes short-term atmospheric conditions, while climate describes long-term patterns.","Weather only involves temperature, while climate involves precipitation.","Weather occurs locally, while climate only occurs globally."], correct:1},
+{tier:"Warm-Up", q:"Earth's rotation is responsible for which pattern?", opts:["Seasons","Day and night","The length of a year","Solstices"], correct:1},
+{tier:"Warm-Up", q:"Earth's revolution refers to:", opts:["Earth spinning on its axis","The Moon traveling around Earth","Earth traveling around the Sun","Earth's plates moving across the mantle"], correct:2},
+
+{tier:"Building the Money", q:"Why does Earth experience seasons?", opts:["Earth's distance from the Sun changes dramatically throughout the year.","Earth's tilted axis causes different areas to receive different amounts of direct sunlight.","Earth's rotation causes temperatures to change every few months as it revolves around the sun.","The Sun produces different amounts of energy during different parts of the year."], correct:1},
+{tier:"Building the Money", q:"What occurs during an equinox?", opts:["One hemisphere receives 24 hours of daylight.","Longest day of sunlight in the northern hemisphere.","Day and night are approximately equal in length.","Earth reaches its closest point to the Sun."], correct:2},
+{tier:"Building the Money", q:"Which statement best describes a solstice?", opts:["It occurs when day and night are approximately equal.","It marks the longest or shortest period of daylight of the year.","It occurs whenever Earth is closest to the Sun in its revolution.","It causes Earth's axis to change direction and tilt the other way."], correct:1},
+{tier:"Building the Money", q:"Why can locations inside the Arctic Circle experience the midnight sun?", opts:["Earth's rotation temporarily stops during the summer solstice season.","Earth's axial tilt keeps the region pointed toward the Sun during part of its revolution.","The Sun moves closer to the poles during summer solstice which causes increased sunlight.","Earth's atmosphere reflects sunlight toward the poles causing continuous daylight near the poles."], correct:1},
+{tier:"Building the Money", q:"A community inside the Arctic Circle experiences several weeks when the Sun never rises above the horizon. What is this phenomenon called?", opts:["Equinox","Polar night","Solar eclipse","Rain shadow"], correct:1},
+{tier:"Building the Money", q:"Tectonic plates typically move at approximately what rate?", opts:["Several feet per day","Several feet per year","A few centimeters per year","Hundreds of kilometers per year"], correct:2},
+{tier:"Building the Money", q:"Which statement correctly describes the Ring of Fire?", opts:["It surrounds the Atlantic Ocean and contains mostly divergent boundaries where plates meet.","It surrounds much of the Pacific Ocean and has frequent earthquakes and volcanic activity.","It follows the Equator and contains Earth's hottest and driest climate regions.","It surrounds the Indian Ocean and contains Earth's largest deserts with no rainfall."], correct:1},
+{tier:"Building the Money", q:"The San Andreas Fault is an example of which type of plate boundary?", opts:["Convergent","Divergent","Transform","Subduction"], correct:2},
+{tier:"Building the Money", q:"What happens when two plates carrying continental crust collide?", opts:["One continental plate easily sinks into the mantle.","The crust crumples and uplifts, forming mountains.","A mid-ocean ridge develops.","The plates begin moving away from each other."], correct:1},
+{tier:"Building the Money", q:"Why do most earthquakes occur along plate boundaries?", opts:["Tectonic stress builds and is released where plates interact.","Ocean currents create pressure beneath plate boundaries.","Atmospheric pressure is strongest along plate edges.","Earth's magnetic field pulls plates toward one another."], correct:0},
+
+{tier:"Getting Harder", q:"What causes convection currents within Earth's mantle?", opts:["Heated material rises while cooler material sinks, creating circulating movement.","Ocean tides pull mantle material toward the surface.","Earth's magnetic field pushes rock around the mantle.","Earth's rotation forces mantle material toward the Equator."], correct:0},
+{tier:"Getting Harder", q:"Which plate boundary would most likely create mountains with very thick continental crust?", opts:["An oceanic divergent boundary","A continental-continental convergent boundary","A transform boundary","An oceanic spreading center"], correct:1},
+{tier:"Getting Harder", q:"How can freshwater precipitation originally come from salty ocean water?", opts:["Ocean currents naturally filter salt from seawater.","Evaporation turns water into vapor while leaving dissolved salt behind.","Clouds remove salt from seawater before evaporation.","Groundwater mixes with ocean water and removes its salt."], correct:1},
+{tier:"Getting Harder", q:"What causes a rain shadow on the leeward side of a mountain range?", opts:["Moist air rises and releases precipitation on the windward side before drier air descends on the leeward side.","Mountains block sunlight from reaching the leeward side so all precipitation falls on the windward side.","Rivers carry water away from the leeward side toward the windward side which is closer to the ocean.","Strong winds prevent evaporation on the leeward side causing orographic precipitation on the windward side."], correct:0},
+{tier:"Getting Harder", q:"Which statement best describes the natural greenhouse effect?", opts:["Greenhouse gases prevent all solar energy from reaching Earth which results in excessive warmth.","Certain atmospheric gases trap some heat, helping keep Earth warm enough for life.","Earth's ozone layer produces heat that warms the surface to the point it sustains life.","Greenhouse gases cause all incoming sunlight to remain near Earth's surface so we can live on earth."], correct:1},
+
+{tier:"Millionaire-Level Application", q:"Human activities increase the greenhouse effect primarily by:", opts:["reducing Earth's rotation rate which slows down climatic patterns on earth.","releasing additional greenhouse gases, especially through burning fossil fuels.","increasing the amount of freshwater on Earth that is used for human consumption.","causing Earth's orbit around the Sun to change the way it travels resulting in an oval path."], correct:1},
+{tier:"Millionaire-Level Application", q:"How does global warming contribute to rising sea levels?", opts:["Increased evaporation permanently removes water from oceans and places it in the clouds.","Warmer temperatures melt land ice and cause seawater to expand as it warms.","Stronger winds push ocean water permanently toward coastlines resulting in flooding.","Melting sea ice adds large amounts of new water to the oceans and it needs to be reabsorbed."], correct:1},
+{tier:"Millionaire-Level Application", q:"Farmers remove large areas of forest for agriculture. Over time, the soil becomes less fertile, erosion increases, and the land becomes increasingly dry. Which sequence BEST explains what is happening?", opts:["Pollution → overfishing → climate change","Deforestation → land degradation → desertification","Desertification → reforestation → resource depletion","Urbanization → condensation → desertification"], correct:1},
+{tier:"Millionaire-Level Application", q:"A fishing fleet catches fish faster than the population can reproduce. After several years, fish populations decline dramatically. This is BEST classified as:", opts:["sustainable development and overfishing.","desertification and deforestation.","overfishing and natural resource depletion.","water pollution only and sustainable development"], correct:2},
+{tier:"Millionaire-Level Application", q:"A growing city needs more electricity but also wants to protect resources for future generations. Which plan BEST demonstrates sustainability?", opts:["Use the cheapest available resources regardless of how quickly they are depleted to meet the needs of the people.","Increase fossil-fuel use because current residents need energy now and worrying about renewable energy later.","Balance environmental protection, economic needs, and people's well-being when making long-term decisions.","Stop using all natural resources to prevent environmental change or long-term damage."], correct:2},
+{tier:"Millionaire-Level Application", q:"After a volcanic eruption, ash enters the air, lava destroys vegetation, and nearby streams become filled with sediment. Which conclusion BEST demonstrates how Earth's spheres interact?", opts:["Changes in the geosphere can cause changes in the atmosphere, biosphere, and hydrosphere.","Each of Earth's spheres changes independently from the others and do not interact.","Only the atmosphere and geosphere are affected because living things recover much more quickly.","The hydrosphere causes changes in all other spheres but is rarely is affected itself."], correct:0},
+{tier:"Millionaire-Level Application", q:"Scientists cannot directly travel to Earth's core, yet they know the outer core is liquid while the inner core is solid. Which explanation BEST accounts for this difference?", opts:["The inner core is cooler because it is farther from Earth's surface.","Extreme pressure keeps the inner core solid despite its very high temperature.","The outer core receives more heat from the Sun than the inner core.","The inner core is made of completely different materials than the outer core."], correct:1},
+{tier:"Millionaire-Level Application", q:"Two cities are located at approximately the same latitude. City A is located along an ocean coast, while City B is far inland. City A has milder summers and winters than City B. Which factor BEST explains the difference?", opts:["Latitude causes City A to receive less direct sunlight resulting in temperature differences.","Large bodies of water heat and cool more slowly than land, moderating nearby temperatures.","Coastal locations rotate more slowly than inland locations which is why there are temperature differences.","City B is farther from Earth's core and therefore experiences greater temperature changes."], correct:1},
+{tier:"Millionaire-Level Application", q:"A factory releases pollutants into a river. Several years later, scientists observe declining fish populations, contaminated drinking water, and health concerns in nearby communities. Which conclusion BEST explains why pollution is a geographic issue?", opts:["Pollution only affects the hydrosphere because the original contamination entered water near the factory.","Human activities can create environmental changes that spread through interconnected natural and human systems.","Pollution becomes harmless once it moves away from its original source and does not lead to a trickle down affect.","Environmental pollution affects ecosystems but has little connection to human populations."], correct:1},
+{tier:"Millionaire-Level Application", q:"Global average temperatures increase over several decades. During the same period, scientists document shifting precipitation patterns, melting glaciers, changing growing seasons, and more frequent extreme heat events. Which statement BEST distinguishes global warming from climate change in this example?", opts:["Global warming refers to rising average temperatures, while climate change includes the broader long-term changes occurring within Earth's climate system.","Global warming refers to all environmental changes, while climate change only refers to temperature changes Earth is experiencing.","Climate change describes short-term weather events, while global warming describes long-term weather patterns established overtime.","Global warming and climate change describe completely unrelated processes even though people continue to say they are the same."], correct:0}
+];
+
+const LADDER = [100,200,300,500,1000,2000,4000,8000,16000,32000,40000,50000,60000,70000,80000,90000,100000,125000,150000,175000,200000,225000,250000,275000,300000,325000,350000,375000,400000,450000,500000,600000,700000,850000,1000000];
+const SAFETY_INDEXES = [9,19,29]; // rung 10, 20, 30 (0-indexed)
+
+let mode = 'individual';
+let teamCount = 2;
+let players = []; // {name, rung(-1 = not started), fiftyUsed}
+let turnOrder = [];
+let turnPointer = 0;
+let questionIndex = 0; // which question (0..34) is being asked next
+let currentOptionsDisabled = false;
+let removedForFifty = [];
+
+function fmt(n){ return '$' + n.toLocaleString(); }
+
+function chooseMode(m){
+  mode = m;
+  document.getElementById('mode-individual').classList.toggle('selected', m==='individual');
+  document.getElementById('mode-teams').classList.toggle('selected', m==='teams');
+  document.getElementById('teams-setup').classList.toggle('game-hidden', m!=='teams');
+  document.getElementById('individual-setup').classList.toggle('game-hidden', m==='teams');
+  if(m==='teams') renderTeamNameInputs();
+}
+
+function changeTeamCount(delta){
+  teamCount = Math.min(8, Math.max(2, teamCount + delta));
+  document.getElementById('team-count-display').textContent = teamCount;
+  renderTeamNameInputs();
+}
+
+function renderTeamNameInputs(){
+  const wrap = document.getElementById('team-name-inputs');
+  const existing = Array.from(wrap.querySelectorAll('input')).map(i=>i.value);
+  wrap.innerHTML = '';
+  for(let i=0;i<teamCount;i++){
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'team-name-input';
+    input.placeholder = 'Team ' + (i+1) + ' name';
+    input.value = existing[i] || '';
+    wrap.appendChild(input);
+  }
+}
+renderTeamNameInputs();
+
+function startGame(){
+  players = [];
+  if(mode === 'individual'){
+    const nameInput = document.getElementById('solo-name').value.trim();
+    players.push({ name: nameInput || 'Solo Explorer', rung: -1, fiftyUsed:false });
+  } else {
+    const inputs = document.querySelectorAll('#team-name-inputs input');
+    inputs.forEach((inp,i)=>{
+      players.push({ name: inp.value.trim() || ('Team ' + (i+1)), rung:-1, fiftyUsed:false });
+    });
+  }
+  turnOrder = players.map((_,i)=>i);
+  turnPointer = 0;
+  questionIndex = 0;
+
+  document.getElementById('setup-screen').classList.add('game-hidden');
+  document.getElementById('game-screen').classList.remove('game-hidden');
+  renderLadder();
+  renderQuestion();
+}
+
+function currentPlayerIndex(){
+  return turnOrder[turnPointer % turnOrder.length];
+}
+
+function renderLadder(){
+  const ladderEl = document.getElementById('ladder');
+  const p = players[currentPlayerIndex()];
+  const teamColorIdx = (currentPlayerIndex() % 8) + 1;
+  let html = '<h3>Money Ladder</h3>';
+  for(let i = LADDER.length - 1; i >= 0; i--){
+    let cls = 'rung';
+    if(SAFETY_INDEXES.includes(i)) cls += ' safety';
+    let style = '';
+    if(i === p.rung){
+      cls += ' current';
+      style = `style="background:var(--team-${teamColorIdx}-bg); color:var(--team-${teamColorIdx}-fg);"`;
+    }
+    html += `<div class="${cls}" ${style}><span class="num">${i+1}</span><span>${fmt(LADDER[i])}</span></div>`;
+  }
+  ladderEl.innerHTML = html;
+}
+
+function renderQuestion(){
+  if(questionIndex >= QUESTIONS.length){
+    showResults();
+    return;
+  }
+  currentOptionsDisabled = false;
+  removedForFifty = [];
+  const p = players[currentPlayerIndex()];
+  const item = QUESTIONS[questionIndex];
+
+  const teamColorIdx = (currentPlayerIndex() % 8) + 1;
+  const banner = document.getElementById('big-turn-banner');
+  banner.style.backgroundColor = `var(--team-${teamColorIdx}-bg)`;
+  banner.style.color = `var(--team-${teamColorIdx}-fg)`;
+
+  document.getElementById('turn-who').textContent = p.name;
+  document.getElementById('progress-tag').innerHTML = '<small>Currently at</small>' + (p.rung >= 0 ? fmt(LADDER[p.rung]) : '$0');
+  document.getElementById('question-count').textContent = 'Q ' + (questionIndex+1) + ' / ' + QUESTIONS.length;
+  document.getElementById('tier-strip-inline').textContent = item.tier + ' · worth ' + fmt(LADDER[Math.min(p.rung+1, LADDER.length-1)]);
+  document.getElementById('question-text').textContent = item.q;
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('next-btn').classList.remove('show');
+
+  const fiftyBtn = document.getElementById('fifty-btn');
+  fiftyBtn.disabled = p.fiftyUsed;
+
+  renderOptions(item);
+  renderLadder();
+}
+
+function renderOptions(item){
+  const optsWrap = document.getElementById('options');
+  optsWrap.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  item.opts.forEach((text, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.id = 'opt-' + idx;
+    if(removedForFifty.includes(idx)){
+      btn.classList.add('faded');
+      btn.disabled = true;
+    }
+    btn.innerHTML = `<span class="letter">${letters[idx]}.</span><span>${text}</span>`;
+    btn.onclick = ()=> selectAnswer(idx);
+    optsWrap.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx){
+  if(currentOptionsDisabled) return;
+  currentOptionsDisabled = true;
+  const item = QUESTIONS[questionIndex];
+  const p = players[currentPlayerIndex()];
+  const buttons = document.querySelectorAll('.opt-btn');
+  buttons.forEach(b=> b.disabled = true);
+
+  const chosenBtn = document.getElementById('opt-' + idx);
+  const correctBtn = document.getElementById('opt-' + item.correct);
+  correctBtn.classList.add('correct');
+
+  const feedback = document.getElementById('feedback');
+
+  if(idx === item.correct){
+    p.rung = Math.min(p.rung + 1, LADDER.length - 1);
+    feedback.textContent = 'Correct! ' + p.name + ' climbs to ' + fmt(LADDER[p.rung]) + '.';
+    feedback.className = 'feedback good';
+  } else {
+    chosenBtn.classList.add('wrong');
+    const dropIndex = nearestSafetyBelow(p.rung);
+    p.rung = dropIndex;
+    feedback.textContent = 'Not quite — ' + p.name + ' drops back to ' + (dropIndex >= 0 ? fmt(LADDER[dropIndex]) : '$0') + '.';
+    feedback.className = 'feedback bad';
+  }
+  document.getElementById('next-btn').classList.add('show');
+  renderLadder();
+}
+
+function nearestSafetyBelow(rung){
+  // rung = player's last CONFIRMED (already-banked) rung index, or -1 if none banked yet.
+  // Drop to the highest safety-net rung they have already banked; otherwise back to $0.
+  let result = -1;
+  for(const s of SAFETY_INDEXES){
+    if(s <= rung) result = Math.max(result, s);
+  }
+  return result;
+}
+
+function useFiftyFifty(){
+  const p = players[currentPlayerIndex()];
+  if(p.fiftyUsed || currentOptionsDisabled) return;
+  p.fiftyUsed = true;
+  const item = QUESTIONS[questionIndex];
+  const wrongIndexes = [0,1,2,3].filter(i=> i !== item.correct);
+  // shuffle and remove two wrong ones
+  for(let i = wrongIndexes.length -1; i>0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [wrongIndexes[i], wrongIndexes[j]] = [wrongIndexes[j], wrongIndexes[i]];
+  }
+  removedForFifty = wrongIndexes.slice(0,2);
+  renderOptions(item);
+  document.getElementById('fifty-btn').disabled = true;
+}
+
+function nextTurn(){
+  questionIndex++;
+  turnPointer++;
+  renderQuestion();
+}
+
+function showResults(){
+  document.getElementById('game-screen').classList.add('game-hidden');
+  const resultsScreen = document.getElementById('results-screen');
+  resultsScreen.classList.remove('game-hidden');
+  const sorted = players.slice().sort((a,b)=> (b.rung) - (a.rung));
+  const list = document.getElementById('results-list');
+  list.innerHTML = '';
+  const medals = ['🥇','🥈','🥉'];
+  sorted.forEach((p)=>{
+    const originalIdx = players.indexOf(p);
+    const teamColorIdx = (originalIdx % 8) + 1;
+    const rank = sorted.indexOf(p);
+    const row = document.createElement('div');
+    row.className = 'result-row' + (rank===0 ? ' winner' : '');
+    const amt = p.rung >= 0 ? fmt(LADDER[p.rung]) : '$0';
+    const swatch = `<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--team-${teamColorIdx}-bg);margin-right:10px;"></span>`;
+    row.innerHTML = `<div class="result-name">${swatch}${rank<3 ? '<span class="medal">'+medals[rank]+'</span>' : ''}${p.name}</div><div class="result-amt">${amt}</div>`;
+    list.appendChild(row);
+  });
+}
+</script>
+</body>
+</html>
